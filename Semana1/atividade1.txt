@@ -1,0 +1,7 @@
+O .NET SDK oferece uma série de comandos para verificar, atualizar e remover versões no ambiente de desenvolvimento.
+
+dotnet --version retorna a versão instalada do SDK.
+dotnet --list-sdks e dotnet --list-runtimes listam as versões instaladas do SDK e do runtime, respectivamente.
+Para atualizar, dotnet --install-sdk instala a última versão estável, enquanto dotnet --install-sdk <version> instala uma versão específica.
+Para remover, dotnet --uninstall-sdk <version> remove uma versão específica, e dotnet --uninstall-sdk --all remove todas as versões instaladas.
+Esses comandos são fundamentais para gerenciar o ambiente de desenvolvimento, garantindo atualizações adequadas e removendo versões não utilizadas, proporcionando consistência nos projetos .NET.
