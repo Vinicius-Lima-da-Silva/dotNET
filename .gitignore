@@ -1,2 +1,4 @@
 bin/
 obj/
+dotNet.csproj/
+dotNet.sln/
