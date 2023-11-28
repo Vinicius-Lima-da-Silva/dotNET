@@ -137,6 +137,37 @@ class Program
             CPF = "12345678901",
             CREF = "ABC123"
         };
+        Treinador treinador2 = new Treinador
+{
+    Nome = "Mariana Oliveira",
+    DataNascimento = new DateTime(1992, 6, 20),
+    CPF = "98765432102",
+    CREF = "DEF456"
+};
+
+Treinador treinador3 = new Treinador
+{
+    Nome = "Carlos Santos",
+    DataNascimento = new DateTime(1980, 8, 5),
+    CPF = "34567890123",
+    CREF = "GHI789"
+};
+
+Treinador treinador4 = new Treinador
+{
+    Nome = "Lúcia Pereira",
+    DataNascimento = new DateTime(1973, 4, 12),
+    CPF = "45678901234",
+    CREF = "JKL012"
+};
+
+Treinador treinador5 = new Treinador
+{
+    Nome = "Felipe Mendes",
+    DataNascimento = new DateTime(1995, 12, 30),
+    CPF = "56789012345",
+    CREF = "MNO345"
+};
 
         Cliente cliente1 = new Cliente
         {
@@ -186,6 +217,11 @@ Cliente cliente5 = new Cliente
 };
 
         academia.AdicionarTreinador(treinador1);
+        academia.AdicionarTreinador(treinador2);
+        academia.AdicionarTreinador(treinador3);
+        academia.AdicionarTreinador(treinador4);
+        academia.AdicionarTreinador(treinador5);
+
         academia.AdicionarCliente(cliente1);
         academia.AdicionarCliente(cliente2);
         academia.AdicionarCliente(cliente3);
