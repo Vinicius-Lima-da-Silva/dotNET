@@ -141,7 +141,7 @@ class Program
         Cliente cliente1 = new Cliente
         {
             Nome = "Maria Santos",
-            DataNascimento = new DateTime(1990, 8, 25),
+            DataNascimento = new DateTime(1990, 6, 25),
             CPF = "98765432109",
             Altura = 1.65,
             Peso = 60
@@ -149,7 +149,7 @@ class Program
         Cliente cliente2 = new Cliente
 {
     Nome = "João Silva",
-    DataNascimento = new DateTime(1985, 4, 12),
+    DataNascimento = new DateTime(1985, 6, 12),
     CPF = "12345678901",
     Altura = 1.75,
     Peso = 80
@@ -169,7 +169,7 @@ Cliente cliente3 = new Cliente
 Cliente cliente4 = new Cliente
 {
     Nome = "Pedro Souza",
-    DataNascimento = new DateTime(1976, 9, 18),
+    DataNascimento = new DateTime(1976, 6, 18),
     CPF = "24680135790",
     Altura = 1.80,
     Peso = 85
@@ -193,12 +193,10 @@ Cliente cliente5 = new Cliente
         academia.AdicionarCliente(cliente5);
 
         academia.RelatorioTreinadoresPorIdade(30, 50);
-        academia.RelatorioClientesPorIdade(25, 35);
-        
+        academia.RelatorioClientesPorIdade(0, 100);
         academia.RelatorioClientesOrdemAlfabetica();
         academia.RelatorioClientesMaisVelhoParaMaisNovo();
-        academia.RelatorioAniversariantesDoMes(11);
+        academia.RelatorioAniversariantesDoMes(6);
         academia.RelatorioClientesPorIMC(10);
     }
 }
-
