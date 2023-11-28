@@ -20,11 +20,7 @@ public class Cliente : Pessoa
 {
     public double Altura { get; set; }
     public double Peso { get; set; }
-    public double CalcularIMC()
-    {
-        // Cálculo do IMC usando altura e peso
-        return Peso / (Altura * Altura);
-    }
+    public Func<double> CalcularIMC => () => Peso / (Altura * Altura);
 }
 
 public class Academia
@@ -67,7 +63,7 @@ public class Academia
         DateTime dataAtual = DateTime.Now;
         var treinadoresFiltrados = treinadores.Where(t => (dataAtual.Year - t.DataNascimento.Year) >= idadeMinima &&
                                                     (dataAtual.Year - t.DataNascimento.Year) <= idadeMaxima);
-        Console.WriteLine("Treinadores por idade:");
+        Console.WriteLine("**********Treinadores por idade**********");
         foreach (var treinador in treinadoresFiltrados) {
             Console.WriteLine($"Nome: {treinador.Nome}, Idade: {dataAtual.Year - treinador.DataNascimento.Year}");
         }
@@ -77,7 +73,7 @@ public class Academia
         DateTime dataAtual = DateTime.Now;
         var clientesFiltrados = clientes.Where(c => (dataAtual.Year - c.DataNascimento.Year) >= idadeMinima &&
                                                 (dataAtual.Year - c.DataNascimento.Year) <= idadeMaxima);
-        Console.WriteLine("Clientes por idade:");
+        Console.WriteLine("**********Clientes por idade**********");
         foreach (var cliente in clientesFiltrados) {
             Console.WriteLine($"Nome: {cliente.Nome}, Idade: {dataAtual.Year - cliente.DataNascimento.Year}");
         }
@@ -86,7 +82,7 @@ public class Academia
     public void RelatorioClientesPorIMC(double valorIMC) {
         var clientesFiltrados = clientes.Where(c => c.CalcularIMC() > valorIMC)
                                          .OrderBy(c => c.CalcularIMC());
-        Console.WriteLine($"Clientes com IMC > {valorIMC} em ordem crescente:");
+        Console.WriteLine($"**********Clientes com IMC > {valorIMC} em ordem crescente**********");
         foreach (var cliente in clientesFiltrados) {
             Console.WriteLine($"Nome: {cliente.Nome}, IMC: {cliente.CalcularIMC()}");
         }
@@ -94,7 +90,7 @@ public class Academia
 
     public void RelatorioClientesOrdemAlfabetica() {
         var clientesOrdenados = clientes.OrderBy(c => c.Nome);
-        Console.WriteLine("Clientes em ordem alfabética:");
+        Console.WriteLine("**********Clientes em ordem alfabética**********");
         foreach (var cliente in clientesOrdenados) {
             Console.WriteLine($"Nome: {cliente.Nome}");
         }
@@ -102,7 +98,7 @@ public class Academia
 
     public void RelatorioClientesMaisVelhoParaMaisNovo() {
         var clientesOrdenadosIdade = clientes.OrderByDescending(c => c.DataNascimento);
-        Console.WriteLine("Clientes do mais novo para o mais velho:");
+        Console.WriteLine("**********Clientes do mais novo para o mais velho**********");
         foreach (var cliente in clientesOrdenadosIdade) {
             Console.WriteLine($"Nome: {cliente.Nome}, Idade: {DateTime.Now.Year - cliente.DataNascimento.Year}");
         }
@@ -115,7 +111,7 @@ public class Academia
         pessoas.AddRange(clientes);
 
         var aniversariantes = pessoas.Where(p => p.DataNascimento.Month == mes);
-        Console.WriteLine($"Aniversariantes do mês {mes}:");
+        Console.WriteLine($"**********Aniversariantes do mês {mes}**********");
         foreach (var pessoa in aniversariantes) {
             Console.WriteLine($"Nome: {pessoa.Nome}, Data de Nascimento: {pessoa.DataNascimento:d}");
         }
