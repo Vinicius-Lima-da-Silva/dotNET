@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Pessoa
 {
@@ -19,6 +20,11 @@ public class Cliente : Pessoa
 {
     public double Altura { get; set; }
     public double Peso { get; set; }
+    public double CalcularIMC()
+    {
+        // Cálculo do IMC usando altura e peso
+        return Peso / (Altura * Altura);
+    }
 }
 
 public class Academia
@@ -57,23 +63,64 @@ public class Academia
         }
     }
 
-    public void GerarRelatorioTreinadores()
-    {
-        Console.WriteLine("Relatório de Treinadores:");
-        foreach (var treinador in treinadores)
-        {
-            Console.WriteLine($"Nome: {treinador.Nome}, CPF: {treinador.CPF}, CREF: {treinador.CREF}");
+    public void RelatorioTreinadoresPorIdade(int idadeMinima, int idadeMaxima) {
+        DateTime dataAtual = DateTime.Now;
+        var treinadoresFiltrados = treinadores.Where(t => (dataAtual.Year - t.DataNascimento.Year) >= idadeMinima &&
+                                                    (dataAtual.Year - t.DataNascimento.Year) <= idadeMaxima);
+        Console.WriteLine("Treinadores por idade:");
+        foreach (var treinador in treinadoresFiltrados) {
+            Console.WriteLine($"Nome: {treinador.Nome}, Idade: {dataAtual.Year - treinador.DataNascimento.Year}");
         }
     }
 
-    public void GerarRelatorioClientes()
-    {
-        Console.WriteLine("Relatório de Clientes:");
-        foreach (var cliente in clientes)
-        {
-            Console.WriteLine($"Nome: {cliente.Nome}, CPF: {cliente.CPF}, Altura: {cliente.Altura}, Peso: {cliente.Peso}");
+    public void RelatorioClientesPorIdade(int idadeMinima, int idadeMaxima) {
+        DateTime dataAtual = DateTime.Now;
+        var clientesFiltrados = clientes.Where(c => (dataAtual.Year - c.DataNascimento.Year) >= idadeMinima &&
+                                                (dataAtual.Year - c.DataNascimento.Year) <= idadeMaxima);
+        Console.WriteLine("Clientes por idade:");
+        foreach (var cliente in clientesFiltrados) {
+            Console.WriteLine($"Nome: {cliente.Nome}, Idade: {dataAtual.Year - cliente.DataNascimento.Year}");
         }
     }
+
+    public void RelatorioClientesPorIMC(double valorIMC) {
+        var clientesFiltrados = clientes.Where(c => c.CalcularIMC() > valorIMC)
+                                         .OrderBy(c => c.CalcularIMC());
+        Console.WriteLine($"Clientes com IMC > {valorIMC} em ordem crescente:");
+        foreach (var cliente in clientesFiltrados) {
+            Console.WriteLine($"Nome: {cliente.Nome}, IMC: {cliente.CalcularIMC()}");
+        }
+    }
+
+    public void RelatorioClientesOrdemAlfabetica() {
+        var clientesOrdenados = clientes.OrderBy(c => c.Nome);
+        Console.WriteLine("Clientes em ordem alfabética:");
+        foreach (var cliente in clientesOrdenados) {
+            Console.WriteLine($"Nome: {cliente.Nome}");
+        }
+    }
+
+    public void RelatorioClientesMaisVelhoParaMaisNovo() {
+        var clientesOrdenadosIdade = clientes.OrderByDescending(c => c.DataNascimento);
+        Console.WriteLine("Clientes do mais novo para o mais velho:");
+        foreach (var cliente in clientesOrdenadosIdade) {
+            Console.WriteLine($"Nome: {cliente.Nome}, Idade: {DateTime.Now.Year - cliente.DataNascimento.Year}");
+        }
+    }
+
+    public void RelatorioAniversariantesDoMes(int mes) {
+        
+        List<Pessoa> pessoas = new List<Pessoa>();
+        pessoas.AddRange(treinadores);
+        pessoas.AddRange(clientes);
+
+        var aniversariantes = pessoas.Where(p => p.DataNascimento.Month == mes);
+        Console.WriteLine($"Aniversariantes do mês {mes}:");
+        foreach (var pessoa in aniversariantes) {
+            Console.WriteLine($"Nome: {pessoa.Nome}, Data de Nascimento: {pessoa.DataNascimento:d}");
+        }
+    }
+
 }
 
 
@@ -99,12 +146,59 @@ class Program
             Altura = 1.65,
             Peso = 60
         };
+        Cliente cliente2 = new Cliente
+{
+    Nome = "João Silva",
+    DataNascimento = new DateTime(1985, 4, 12),
+    CPF = "12345678901",
+    Altura = 1.75,
+    Peso = 80
+};
+
+// Cliente 3
+Cliente cliente3 = new Cliente
+{
+    Nome = "Ana Oliveira",
+    DataNascimento = new DateTime(2000, 11, 30),
+    CPF = "13579246801",
+    Altura = 1.60,
+    Peso = 55
+};
+
+// Cliente 4
+Cliente cliente4 = new Cliente
+{
+    Nome = "Pedro Souza",
+    DataNascimento = new DateTime(1976, 9, 18),
+    CPF = "24680135790",
+    Altura = 1.80,
+    Peso = 85
+};
+
+// Cliente 5
+Cliente cliente5 = new Cliente
+{
+    Nome = "Carla Ferreira",
+    DataNascimento = new DateTime(1995, 6, 8),
+    CPF = "11223344556",
+    Altura = 1.70,
+    Peso = 70
+};
 
         academia.AdicionarTreinador(treinador1);
         academia.AdicionarCliente(cliente1);
+        academia.AdicionarCliente(cliente2);
+        academia.AdicionarCliente(cliente3);
+        academia.AdicionarCliente(cliente4);
+        academia.AdicionarCliente(cliente5);
 
-        academia.GerarRelatorioTreinadores();
-        academia.GerarRelatorioClientes();
+        academia.RelatorioTreinadoresPorIdade(30, 50);
+        academia.RelatorioClientesPorIdade(25, 35);
+        
+        academia.RelatorioClientesOrdemAlfabetica();
+        academia.RelatorioClientesMaisVelhoParaMaisNovo();
+        academia.RelatorioAniversariantesDoMes(11);
+        academia.RelatorioClientesPorIMC(10);
     }
 }
 
